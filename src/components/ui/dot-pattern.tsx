@@ -27,6 +27,8 @@ interface DotPatternProps extends React.SVGProps<SVGSVGElement> {
   cr?: number;
   className?: string;
   glow?: boolean;
+  /** Soft cap on total dot count; component will subsample to stay under this */
+  maxDots?: number;
   [key: string]: unknown;
 }
 
@@ -70,6 +72,7 @@ export function DotPattern({
   cr = 1,
   className,
   glow = false,
+  maxDots = 1500,
   ...props
 }: DotPatternProps) {
   const id = useId();
@@ -89,23 +92,25 @@ export function DotPattern({
     return () => window.removeEventListener("resize", updateDimensions);
   }, []);
 
-  const dots = Array.from(
-    {
-      length:
-        Math.ceil(dimensions.width / width) *
-        Math.ceil(dimensions.height / height),
-    },
-    (_, i) => {
-      const col = i % Math.ceil(dimensions.width / width);
-      const row = Math.floor(i / Math.ceil(dimensions.width / width));
-      return {
-        x: col * width + cx,
-        y: row * height + cy,
-        delay: Math.random() * 5,
-        duration: Math.random() * 3 + 2,
-      };
-    },
-  );
+  const dots = React.useMemo(() => {
+    const cols = Math.max(1, Math.ceil(dimensions.width / width));
+    const rows = Math.max(1, Math.ceil(dimensions.height / height));
+    const total = cols * rows;
+    // Determine a stride to keep total dots under maxDots
+    const stride = total > maxDots ? Math.ceil(Math.sqrt(total / maxDots)) : 1;
+    const sampled: Array<{ x: number; y: number; delay: number; duration: number }> = [];
+    for (let row = 0; row < rows; row += stride) {
+      for (let col = 0; col < cols; col += stride) {
+        sampled.push({
+          x: col * width + cx,
+          y: row * height + cy,
+          delay: Math.random() * 5,
+          duration: Math.random() * 3 + 2,
+        });
+      }
+    }
+    return sampled;
+  }, [dimensions.width, dimensions.height, width, height, cx, cy, maxDots]);
 
   return (
     <svg
@@ -123,35 +128,34 @@ export function DotPattern({
           <stop offset="100%" stopColor="currentColor" stopOpacity="0" />
         </radialGradient>
       </defs>
-      {dots.map((dot, index) => (
-        <motion.circle
-          key={`${dot.x}-${dot.y}`}
-          cx={dot.x}
-          cy={dot.y}
-          r={cr}
-          fill={glow ? `url(#${id}-gradient)` : "currentColor"}
-          initial={glow ? { opacity: 0.4, scale: 1 } : {}}
-          animate={
-            glow
-              ? {
-                  opacity: [0.4, 1, 0.4],
-                  scale: [1, 1.5, 1],
-                }
-              : {}
-          }
-          transition={
-            glow
-              ? {
-                  duration: dot.duration,
-                  repeat: Infinity,
-                  repeatType: "reverse",
-                  delay: dot.delay,
-                  ease: "easeInOut",
-                }
-              : {}
-          }
-        />
-      ))}
+      {glow
+        ? dots.map((dot) => (
+            <motion.circle
+              key={`${dot.x}-${dot.y}`}
+              cx={dot.x}
+              cy={dot.y}
+              r={cr}
+              fill={`url(#${id}-gradient)`}
+              initial={{ opacity: 0.4, scale: 1 }}
+              animate={{ opacity: [0.4, 1, 0.4], scale: [1, 1.5, 1] }}
+              transition={{
+                duration: dot.duration,
+                repeat: Infinity,
+                repeatType: "reverse",
+                delay: dot.delay,
+                ease: "easeInOut",
+              }}
+            />
+          ))
+        : dots.map((dot) => (
+            <circle
+              key={`${dot.x}-${dot.y}`}
+              cx={dot.x}
+              cy={dot.y}
+              r={cr}
+              fill="currentColor"
+            />
+          ))}
     </svg>
   );
 }

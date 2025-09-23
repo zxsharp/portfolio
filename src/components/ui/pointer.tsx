@@ -40,12 +40,12 @@ export function Pointer({
         parentElement.style.cursor = "none";
 
         // Add event listeners to parent
-        const handleMouseMove = (e: MouseEvent) => {
+        const handleMouseMove = (e: MouseEvent | PointerEvent) => {
           x.set(e.clientX);
           y.set(e.clientY);
         };
 
-        const handleMouseEnter = (e: MouseEvent) => {
+        const handleMouseEnter = (e: MouseEvent | PointerEvent) => {
           x.set(e.clientX);
           y.set(e.clientY);
           setIsActive(true);
@@ -55,15 +55,17 @@ export function Pointer({
           setIsActive(false);
         };
 
-        parentElement.addEventListener("mousemove", handleMouseMove);
-        parentElement.addEventListener("mouseenter", handleMouseEnter);
-        parentElement.addEventListener("mouseleave", handleMouseLeave);
+        parentElement.addEventListener("pointermove", handleMouseMove as EventListener, {
+          passive: true,
+        });
+        parentElement.addEventListener("pointerenter", handleMouseEnter as EventListener);
+        parentElement.addEventListener("pointerleave", handleMouseLeave);
 
         return () => {
           parentElement.style.cursor = "";
-          parentElement.removeEventListener("mousemove", handleMouseMove);
-          parentElement.removeEventListener("mouseenter", handleMouseEnter);
-          parentElement.removeEventListener("mouseleave", handleMouseLeave);
+          parentElement.removeEventListener("pointermove", handleMouseMove as EventListener);
+          parentElement.removeEventListener("pointerenter", handleMouseEnter as EventListener);
+          parentElement.removeEventListener("pointerleave", handleMouseLeave);
         };
       }
     }
