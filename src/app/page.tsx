@@ -33,7 +33,7 @@ export default function Home() {
       
       
 
-      <CodePointer />
+      {/* <CodePointer /> */}
 
       <NavBar />
       
