@@ -54,7 +54,7 @@ export default function Home() {
           <div className="flex flex-col gap-4">
             <div className="flex items-end text-4xl sm:text-6xl font-semibold caret-underscore caret-blink min-w-0 max-w-full">
               <TypingAnimation delay={150} className="inline whitespace-normal break-words align-baseline">
-                Hi 👋 I'm Ishansh
+                Hi 👋 I&apos;m Ishansh
               </TypingAnimation>
             </div>
             <div className="font-semibold text-lg caret-underscore caret-blink min-w-0 max-w-full">
