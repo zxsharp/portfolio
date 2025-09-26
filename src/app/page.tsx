@@ -1,45 +1,93 @@
 import Image from "next/image";
-import { Pointer } from "@/components/ui/pointer";
 import { DotPattern } from "@/components/ui/dot-pattern";
 import { cn } from "@/lib/utils";
 import { BlurFade } from "@/components/ui/blur-fade";
+import NavBar from "@/components/nav-bar";
+import CodePointer from "@/components/code-pointer";
+import { TypingAnimation } from "@/components/ui/typing-animation";
+import TechStack from "@/components/tech-stack";
+
 
 export default function Home() {
   return (
-    <div className="h-96 min-h-screen relative w-full overflow-hidden bg-slate-900 flex flex-col items-center justify-center">
-      
+    <>
+
       <DotPattern 
         glow={true}
         className={cn(
-          "z-1 fixed [mask-image:radial-gradient(500px_circle_at_center,white,transparent)]",
+          "z-1 fixed [mask-image:radial-gradient(700px_circle_at_center,white,transparent)]",
         )}
       />
+
       
-      <div className="z-2 flex justify-around gap-10 items-center">
-        <BlurFade delay={0.25} inView>
-          <Image
-            aria-hidden
-            src="/pfp.png"
-            alt="Window icon"
-            width={180}
-            height={180}
-            className="rounded-full"
-          />
-        </BlurFade>
-        <BlurFade delay={0.25} inView>
-          <div className="flex flex-col gap-4 text-slate-100">
-            <div className="items-center text-3xl font-semibold">
-              Ishansh 
+        {/* <FlickeringGrid
+          className="fixed z-0 w-screen overflow-hidden bg-background [mask-image:radial-gradient(850px_circle_at_center,white,transparent)]"
+          squareSize={4}
+          gridGap={5}
+          color="#60A5FA"
+          maxOpacity={0.1}
+          flickerChance={0.4}
+          height={1600}
+          width={1600}
+        /> */}
+      
+      
+
+      <CodePointer />
+
+      <NavBar />
+      
+      <section id="hero" className=" z-2 min-h-screen relative w-full overflow-hidden flex flex-col justify-start pt-[30vh]">
+        
+        <div className="flex flex-col justify-center gap-10 items-center">
+          <BlurFade delay={0.25} inView>
+            <Image
+              aria-hidden
+              src="/pfp.png"
+              alt="Window icon"
+              width={200}
+              height={200}
+              className="rounded-full"
+            />
+          </BlurFade>
+          
+          <div className="flex flex-col gap-4">
+            <div className="flex items-end text-4xl sm:text-6xl font-semibold caret-underscore caret-blink min-w-0 max-w-full">
+              <TypingAnimation delay={150} className="inline whitespace-normal break-words align-baseline">
+                Hi 👋 I'm Ishansh
+              </TypingAnimation>
             </div>
-            <div>
-              Average full stack dev
+            <div className="font-semibold text-lg caret-underscore caret-blink min-w-0 max-w-full">
+              <TypingAnimation delay={150} className="inline whitespace-normal break-words align-baseline">
+                Average full stack dev
+              </TypingAnimation>
             </div>
           </div>
+          
+        </div>
+
+      </section>
+
+
+      <section id="tech-stack" className="relative z-2 overflow-hidden w-full">
+        <BlurFade delay={0.1} duration={0.5} inView>
+          {/* <VideoText src="/matrix.mp4"> */}
+            <div className="m-4 flex justify-center text-4xl font-heading font-semibold">
+              Tech Stack
+            </div>
+          {/* </VideoText> */}
         </BlurFade>
-      </div>
 
-      <Pointer className="z-[999] fill-blue-500" />
+        <BlurFade delay={0.2} inView>
+          <TechStack />
+        </BlurFade>
 
-    </div>
+
+      </section>
+
+     
+      
+
+    </>
   );
 }
