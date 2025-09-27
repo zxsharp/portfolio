@@ -1,6 +1,7 @@
 "use client"
 import React, { useState } from "react"
 import { BlurFade } from "./blur-fade"
+import { RippleButton } from "./ripple-button"
 
 export interface TabDefinition {
   label: string
@@ -20,9 +21,9 @@ export const Tabs: React.FC<TabsProps> = ({
   tabs,
   defaultIndex = 0,
   onChange,
-  className = "dark:border-neutral-800 max-w-screen flex flex-wrap gap-3 justify-center items-center p-2 backdrop-blur-2xl",
-  buttonClassName = "flex items-center justify-center rounded-full h-fit px-4 py-2 text-md font-medium tracking-widest uppercase transform will-change-transform hover:scale-105 border-2 border-transparent hover:border-secondary transition-colors duration-200",
-  activeButtonClassName = "dark:text-neutral-900 text-foreground font-semibold bg-cyan-700 dark:bg-white"
+  className = "dark:border-neutral-800 w-full flex flex-wrap gap-3 justify-center items-center p-2 backdrop-blur-2xl",
+  buttonClassName = "flex items-center justify-center rounded-full h-fit px-4 py-2 text-md text-foreground font-medium tracking-widest uppercase transform will-change-transform hover:scale-105 border-2 border-transparent hover:border-secondary transition-all duration-200 ease-out",
+  activeButtonClassName = "dark:text-neutral-900 bg-secondary font-semibold dark:bg-white"
 }) => {
   const [selected, setSelected] = useState<number>(defaultIndex)
 
@@ -33,10 +34,10 @@ export const Tabs: React.FC<TabsProps> = ({
   }
   
   return (
-    <div className="flex flex-col max-w-screen items-center gap-6">
+    <div className="flex flex-col w-full items-center gap-6">
       <div role="tablist" className={className}>
         {tabs.map((t, i) => (
-          <button
+          <RippleButton
             key={t.label + i}
             role="tab"
             aria-selected={selected === i}
@@ -45,9 +46,10 @@ export const Tabs: React.FC<TabsProps> = ({
               buttonClassName +
               (selected === i ? ` ${activeButtonClassName}` : "")
             }
+            rippleColor="oklch(61.073% 0.10792 261.156)"
           >
             {t.label}
-          </button>
+          </RippleButton>
         ))}
       </div>
       <BlurFade key={selected} delay={0.2}>
