@@ -21,8 +21,8 @@ export const Tabs: React.FC<TabsProps> = ({
   tabs,
   defaultIndex = 0,
   onChange,
-  className = "dark:border-neutral-800 w-full flex flex-wrap gap-3 justify-center items-center p-2 backdrop-blur-2xl",
-  buttonClassName = "flex items-center justify-center rounded-full h-fit px-4 py-2 text-md text-foreground font-medium tracking-widest uppercase transform will-change-transform hover:scale-105 border-2 border-transparent hover:border-secondary transition-all duration-200 ease-out",
+  className = "dark:border-neutral-800 w-full flex flex-wrap gap-3 justify-center items-center p-2 backdrop-blur-xl",
+  buttonClassName = "flex items-center justify-center rounded-full h-fit px-4 py-2 text-md text-foreground font-medium tracking-widest uppercase transform will-change-transform hover:scale-105 border-2 border-transparent hover:border-secondary transition-colors duration-400 ease-out",
   activeButtonClassName = "dark:text-neutral-900 bg-secondary font-semibold dark:bg-white"
 }) => {
   const [selected, setSelected] = useState<number>(defaultIndex)
@@ -34,7 +34,7 @@ export const Tabs: React.FC<TabsProps> = ({
   }
   
   return (
-    <div className="flex flex-col w-full items-center gap-6">
+    <div className="flex flex-col w-full items-center gap-8">
       <div role="tablist" className={className}>
         {tabs.map((t, i) => (
           <RippleButton

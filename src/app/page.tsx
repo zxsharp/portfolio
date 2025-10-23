@@ -5,19 +5,21 @@ import { BlurFade } from "@/components/ui/blur-fade";
 import NavBar from "@/components/nav-bar";
 import { TypingAnimation } from "@/components/ui/typing-animation";
 import TechStack from "@/components/tech-stack";
+import Projects from "@/components/projects";
+import WavingHand from "@/components/waving-hand";
 
 
 export default function Home() {
   return (
-    <div className="custom-scrollbar h-screen overflow-y-auto">
-      <div className="mx-4">
+    <div className="px-2 custom-scrollbar h-screen overflow-y-auto scroll-smooth">
+      {/* <div className="mx-4"> */}
 
-        <DotPattern 
+        {/* <DotPattern 
           glow={true}
           className={cn(
             "z-1 fixed [mask-image:radial-gradient(700px_circle_at_center,white,transparent)]",
           )}
-        />
+        /> */}
 
         
           {/* <FlickeringGrid
@@ -37,7 +39,10 @@ export default function Home() {
 
         <NavBar />
         
-        <section id="hero" className=" z-2 min-h-screen relative w-full overflow-hidden flex flex-col justify-start pt-[20vh]">
+        <section
+          id="hero"
+          className="z-2 min-h-screen relative w-full overflow-hidden flex flex-col justify-start pt-[15vh] scroll-mt-[72px]"
+        >
           
           <div className="flex flex-col justify-center gap-10 items-center">
             <div className="flex justify-center relative w-full items-center">
@@ -64,9 +69,13 @@ export default function Home() {
             </div>
             
             <div className="flex flex-col gap-4">
-              <div className="flex items-end text-4xl sm:text-6xl font-semibold caret-underscore caret-blink min-w-0 max-w-full">
+              <div className="flex items-end text-4xl sm:text-7xl font-semibold caret-underscore caret-blink min-w-0 max-w-full">
                 <TypingAnimation delay={150} className="inline whitespace-normal break-words align-baseline">
-                  Hi 👋 I&apos;m Ishansh
+                  {"Hi\u00A0"}
+                </TypingAnimation>
+                <WavingHand appearDelayMs={150} />
+                <TypingAnimation delay={150} className="inline whitespace-normal break-words align-baseline">
+                  {"\u00A0\u00A0I'm Ishansh"}
                 </TypingAnimation>
               </div>
               <div className="font-semibold text-lg caret-underscore caret-blink min-w-0 max-w-full">
@@ -80,24 +89,38 @@ export default function Home() {
 
         </section>
 
-
-        <section id="tech-stack" className="relative z-2 overflow-hidden w-full">
-          <BlurFade delay={0.1} duration={0.5} inView>
-            {/* <VideoText src="/matrix.mp4"> */}
-              <div className="m-4 flex justify-center text-4xl font-heading font-semibold">
-                Tech Stack
+        <section
+          id="tech-stack"
+          className="relative z-2 min-h-screen overflow-hidden w-full flex flex-col md:gap-8 gap-4 scroll-mt-[72px]"
+        >
+          <BlurFade duration={0.5} inView>
+              <div className="m-4 flex justify-center text-2xl md:text-5xl font-heading font-semibold backdrop-blur-2xl tracking-widest">
+                TECH STACK
               </div>
-            {/* </VideoText> */}
           </BlurFade>
 
-          <BlurFade delay={0.2} inView className="flex flex-wrap justify-center">
+          <BlurFade duration={0.5} inView className="flex flex-wrap justify-center">
             <TechStack />
           </BlurFade>
-
-
         </section>
 
-      </div>
+        <section
+          id="projects"
+          className="mt-8 relative z-2 min-h-screen overflow-hidden w-full scroll-mt-[72px]"
+        >
+          <BlurFade duration={0.5} inView>
+              <div className="m-4 flex justify-center text-5xl font-heading font-semibold backdrop-blur-2xl tracking-widest">
+                PROJECTS
+              </div>
+          </BlurFade>
+
+          <BlurFade duration={0.5} inView className="flex flex-wrap justify-center">
+            <Projects />
+          </BlurFade>
+          
+        </section>
+
+      {/* </div> */}
     </div>
   );
 }

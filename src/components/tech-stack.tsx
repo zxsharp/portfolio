@@ -77,7 +77,7 @@ export default function TechStack() {
     ]
 
     return (
-        <div className="max-w-[70vw]">
+        <div className="max-w-[80vw] lg:max-w-[70vw]">
             <Tabs tabs={tabs} />
         </div>
     )
