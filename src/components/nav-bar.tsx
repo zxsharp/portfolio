@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
-import { motion } from "motion/react";
+import { motion, useScroll, useMotionValueEvent } from "motion/react";
 
 export default function NavBar() {
   const [open, setOpen] = useState(false);
@@ -13,6 +13,21 @@ export default function NavBar() {
     el.scrollIntoView({ behavior: "smooth", block: "start" });
     setOpen(false);
   };
+
+  // Bind useScroll to the custom scroll container
+  const containerRef = useRef<HTMLElement | null>(null);
+  if (typeof window !== "undefined" && !containerRef.current) {
+    containerRef.current = document.querySelector(".custom-scrollbar") as HTMLElement | null;
+  }
+  const { scrollY } = useScroll({ container: containerRef });
+
+  // Track scroll direction
+  const [scrollDirection, setScrollDirection] = useState<"down" | "up">("down");
+  useMotionValueEvent(scrollY, "change", (current) => {
+    const prev = scrollY.getPrevious() ?? 0;
+    const diff = current - prev;
+    setScrollDirection(diff > 0 ? "down" : "up");
+  });
 
   return (
     <nav className="fixed inset-x-0 top-0 z-50 bg-transparent">
@@ -77,17 +92,20 @@ export default function NavBar() {
         </button>
 
         {/* Right: hamburger */}
-        <button
+        <motion.button
           type="button"
           aria-label="Open menu"
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
           className="relative inline-flex flex-col items-center justify-center gap-1 p-2 rounded-md hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 cursor-pointer"
+          animate={open || scrollDirection === "up" ? { x: 0, opacity: 1 } : { x: 40, opacity: 0 }}
+          transition={{ duration: 0.25, ease: "easeOut" }}
+          style={{ willChange: "transform, opacity", pointerEvents: open || scrollDirection === "up" ? "auto" : "none" }}
         >
           <span className={`block h-0.5 w-6 bg-white transition-transform ${open ? "translate-y-1.5 rotate-45" : ""}`} />
           <span className={`block h-0.5 w-6 bg-white transition-opacity ${open ? "opacity-0" : "opacity-100"}`} />
           <span className={`block h-0.5 w-6 bg-white transition-transform ${open ? "-translate-y-1.5 -rotate-45" : ""}`} />
-        </button>
+        </motion.button>
       </div>
 
       {/* Overlay */}

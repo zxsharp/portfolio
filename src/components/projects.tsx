@@ -1,11 +1,12 @@
 "use client"
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "./ui/carousel";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from "./ui/carousel";
 import { ProjectCard } from "./ui/project-card";
 import Autoplay from "embla-carousel-autoplay"
 import ClassNames from "embla-carousel-class-names"
-import { useRef} from "react";
+import { useRef, useState } from "react";
 import {ExternalLink, Github} from "lucide-react"
 import { Badge } from "./ui/badge";
+import { useDotButton } from "./ui/EmblaCarouselDotButton";
 
 export default function Projects() {
     const autoplay = useRef(Autoplay({ delay: 3000, stopOnMouseEnter: true, stopOnInteraction: false}))
@@ -17,14 +18,18 @@ export default function Projects() {
             dragging: "duration-0",
         })
     );
+    // capture Embla API from shadcn Carousel
+    const [api, setApi] = useState<CarouselApi | undefined>(undefined);
+
     return (
         <>
             <Carousel
                 opts={{ align: "center", loop: true }}
                 plugins={[autoplay.current, classNames.current]}
-                className="w-full my-4 max-w-5xl"
+                className="w-full my-4 max-w-5xl flex flex-col "
+                setApi={setApi}
             >
-                <CarouselContent className="py-6">
+                <CarouselContent className="pb-6 ">
 
                     <CarouselCard
                         imageUrl="/escape.png"
@@ -72,11 +77,16 @@ export default function Projects() {
                     />
 
                 </CarouselContent>
-                <CarouselPrevious />
-                <CarouselNext />
+                <div className="h-8 flex items-center justify-around">
+                    <div className="flex gap-4">
+                        <CarouselPrevious />
+                        <CarouselNext />
+                    </div>
+                    <CarouselDots api={api} />
+                </div>
             </Carousel>
         </>
-    )
+    )   
 }
 
 type CarouselProps = {
@@ -107,7 +117,7 @@ function CarouselCard(props: CarouselProps) {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label={`${props.title} GitHub`}
-                                    className="inline-flex rounded-full hover:bg-black/60 hover:scale-120 transition-all duration-100 ease-in-out"
+                                    className="inline-flex rounded-md hover:bg-black/60 hover:scale-120 transition-all duration-100 ease-in-out"
                                 >
                                     <Github />
                                 </a>
@@ -118,7 +128,7 @@ function CarouselCard(props: CarouselProps) {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label={`${props.title} Live site`}
-                                    className="inline-flex rounded-md hover:bg-sky-500/60 hover:scale-120 transition-all duration-100 ease-in-out"
+                                    className="inline-flex rounded-md hover:text-sky-300 hover:scale-120 transition-all duration-100 ease-in-out"
                                 >
                                     <ExternalLink />
                                 </a>
@@ -137,4 +147,30 @@ function CarouselCard(props: CarouselProps) {
             </div>
         </CarouselItem>
     )
+}
+
+
+function CarouselDots({ api }: { api: CarouselApi | undefined }) {
+    const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(api);
+
+    return (
+        <div className="flex items-center gap-2">
+            {scrollSnaps.map((_, index) => {
+                const isActive = index === selectedIndex;
+                return (
+                    <button
+                        key={index}
+                        onClick={() => onDotButtonClick(index)}
+                        aria-label={`Go to slide ${index + 1}`}
+                        aria-current={isActive ? "true" : "false"}
+                        className={`h-2 rounded-full transition-all ${
+                            isActive
+                                ? "w-6 bg-slate-200"
+                                : "w-2 bg-slate-500/50 hover:bg-slate-400/70"
+                        }`}
+                    />
+                );
+            })}
+        </div>
+    );
 }
