@@ -4,16 +4,17 @@ import { ProjectCard } from "./ui/project-card";
 import Autoplay from "embla-carousel-autoplay"
 import ClassNames from "embla-carousel-class-names"
 import { useRef, useState } from "react";
-import {ExternalLink, Github} from "lucide-react"
+import {ExternalLink, Github, GithubIcon} from "lucide-react"
+import Image from "next/image";
 import { Badge } from "./ui/badge";
 import { useDotButton } from "./ui/EmblaCarouselDotButton";
 
 export default function Projects() {
-    const autoplay = useRef(Autoplay({ delay: 3000, stopOnMouseEnter: true, stopOnInteraction: false}))
+    const autoplay = useRef(Autoplay({ delay: 3000, stopOnMouseEnter: true, stopOnInteraction: false, stopOnFocusIn: true}))
     const classNames = useRef(
         ClassNames({
             snapped: [
-                "is-snapped"
+                "brightness-125"
             ],
             dragging: "duration-0",
         })
@@ -46,7 +47,7 @@ export default function Projects() {
                         about="File Sharing app requires no login, file is stored in cloud and cron job deletes the file in couple of hours"
                         githubUrl="https://github.com/zxsharp/file-share"
                         liveUrl="https://file-share-jade.vercel.app"
-                        tech={["Next.js", "Zustand", "Vercel", "GitHub Actions"]}
+                        tech={["Next.js", "Zustand", "Vercel", "Prisma", "GitHub Actions"]}
                     />
 
                     <CarouselCard
@@ -101,13 +102,13 @@ type CarouselProps = {
 function CarouselCard(props: CarouselProps) {
     return (
         <CarouselItem className="basis-auto px-4">
-            <div className="p-1 relative embla-slide-card
+            <div className="p-1 relative brightness-80
                 transition-all duration-300 ease-in-out"
             >
                 <ProjectCard imageUrl={props.imageUrl} display={props.title}>
-                    <div className="flex flex-col items-center justify-center p-2 gap-4 ">
-                        <span className="text-xl tracking-widest font-semibold">{props.title}</span>
-                        <span className="h-[5rem]">
+                    <div className="flex flex-col items-center justify-center p-1 gap-4 ">
+                        <span className="text-md md:text-xl tracking-widest font-semibold">{props.title}</span>
+                        <span className="text-sm md:text-md h-[5rem]">
                             {props.about.length > 123 ? `${props.about.slice(0, 123)}....` : props.about}
                         </span>
                         <span className="flex gap-12 h-8 m-2 items-center">
@@ -117,9 +118,9 @@ function CarouselCard(props: CarouselProps) {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label={`${props.title} GitHub`}
-                                    className="inline-flex rounded-md hover:bg-black/60 hover:scale-120 transition-all duration-100 ease-in-out"
+                                    className="inline-flex p-1 rounded-full shadow-xs shadow-black hover:bg-black/60 hover:scale-120 transition-all duration-100 ease-in-out"
                                 >
-                                    <Github />
+                                    <GithubIcon />
                                 </a>
                             )}
                             {props.liveUrl && (
@@ -128,16 +129,16 @@ function CarouselCard(props: CarouselProps) {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label={`${props.title} Live site`}
-                                    className="inline-flex rounded-md hover:text-sky-300 hover:scale-120 transition-all duration-100 ease-in-out"
+                                    className="inline-flex p-1 rounded-md text-sky-300 hover:text-sky-400 hover:scale-120 transition-all duration-100 ease-in-out"
                                 >
                                     <ExternalLink />
                                 </a>
                             )}
                         </span>
-                        <span className="flex gap-2">
+                        <span className="h-12 flex flex-wrap gap-1 md:gap-2 items-center">
                         {props.tech?.map((item, index) => {
                             return (
-                                <Badge variant="outline" key={index} className="px-1">{item}</Badge>
+                                <Badge key={index} className="px-1 text-foreground bg-transparent border-[1px] border-white/50 rounded-sm">{item}</Badge>
                             )
                         })}
                         </span>

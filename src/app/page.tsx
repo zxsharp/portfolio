@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { DotPattern } from "@/components/ui/dot-pattern";
 import { cn } from "@/lib/utils";
 import { BlurFade } from "@/components/ui/blur-fade";
 import NavBar from "@/components/nav-bar";
@@ -22,16 +21,6 @@ export default function Home() {
         /> */}
 
         
-          {/* <FlickeringGrid
-            className="fixed z-0 w-screen overflow-hidden bg-background [mask-image:radial-gradient(850px_circle_at_center,white,transparent)]"
-            squareSize={4}
-            gridGap={5}
-            color="#60A5FA"
-            maxOpacity={0.1}
-            flickerChance={0.4}
-            height={1600}
-            width={1600}
-          /> */}
         
         
 
@@ -46,17 +35,49 @@ export default function Home() {
           
           <div className="flex flex-col justify-center gap-10 items-center">
             <div className="flex justify-center relative w-full items-center">
-              <BlurFade delay={0.5} duration={1} direction="right" inView className="absolute">
-                <Image 
-                  aria-hidden
-                  src="/wings.png"
-                  alt="wings"
-                  width={490}
-                  height={340}
-                  className="w-[340px] sm:w-[540px]"
-                />
-              </BlurFade>
-              <BlurFade delay={0.25} inView>
+                <div className="absolute w-full flex items-center justify-center gap-10 ">
+                {/* left wing: positioned to the left of the profile, slightly behind (z-0) */}
+                <BlurFade
+                  delay={0.25}
+                  duration={1}
+                  direction="left"
+                  offset={25}
+                  inView={true}
+                  className="absolute top-1/2 left-1/2 -translate-y-1/2 z-0 pointer-events-none
+                             -translate-x-[150px] sm:-translate-x-[255px]"
+                >
+                  <Image
+                    aria-hidden
+                    src="/wing-l.png"
+                    alt="Left wing"
+                    width={240}
+                    height={340}
+                    className="w-[140px] sm:w-[240px]"
+                  />
+                </BlurFade>
+
+                {/* right wing: positioned to the right of the profile, slightly behind (z-0) */}
+                <BlurFade
+                  delay={0.25}
+                  duration={1}
+                  direction="right"
+                  offset={25}
+                  inView={true}
+                  className="absolute top-1/2 right-1/2 -translate-y-1/2 z-0 pointer-events-none
+                             translate-x-[150px] sm:translate-x-[255px]"
+                >
+                  <Image
+                    aria-hidden
+                    src="/wing-r.png"
+                    alt="Right wing"
+                    width={240}
+                    height={340}
+                    className="w-[140px] sm:w-[240px]"
+                  />
+                </BlurFade>
+                </div>
+
+              <BlurFade delay={0.15} inView={true} triggerOnce={true}>
                 <Image
                   aria-hidden
                   src="/pfp.png"
@@ -70,16 +91,16 @@ export default function Home() {
             
             <div className="flex flex-col gap-4">
               <div className="flex items-end text-4xl sm:text-7xl font-semibold caret-underscore caret-blink min-w-0 max-w-full">
-                <TypingAnimation delay={150} className="inline whitespace-normal break-words align-baseline">
+                <TypingAnimation delay={50} className="inline whitespace-normal break-words align-baseline">
                   {"Hi\u00A0"}
                 </TypingAnimation>
-                <WavingHand appearDelayMs={150} />
-                <TypingAnimation delay={150} className="inline whitespace-normal break-words align-baseline">
+                <WavingHand appearDelayMs={50} />
+                <TypingAnimation delay={50} className="inline whitespace-normal break-words align-baseline">
                   {"\u00A0\u00A0I'm Ishansh"}
                 </TypingAnimation>
               </div>
               <div className="font-semibold text-lg caret-underscore caret-blink min-w-0 max-w-full">
-                <TypingAnimation delay={150} className="inline whitespace-normal break-words align-baseline">
+                <TypingAnimation delay={50} className="inline whitespace-normal break-words align-baseline">
                   Average full stack dev
                 </TypingAnimation>
               </div>
@@ -90,34 +111,33 @@ export default function Home() {
         </section>
 
         <section
-          id="tech-stack"
-          className="relative z-2 min-h-screen overflow-hidden w-full flex flex-col md:gap-8 gap-4 scroll-mt-[72px]"
-        >
-          <BlurFade duration={0.5} inView>
-              <div className="m-4 flex justify-center text-2xl md:text-5xl font-heading font-semibold backdrop-blur-2xl tracking-widest">
-                TECH STACK
-              </div>
-          </BlurFade>
-
-          <BlurFade duration={0.5} inView className="flex flex-wrap justify-center">
-            <TechStack />
-          </BlurFade>
-        </section>
-
-        <section
           id="projects"
-          className="mt-8 relative z-2 min-h-screen overflow-hidden w-full scroll-mt-[72px]"
+          className="mt-4 bg-gray-900/60 relative z-2 min-h-screen overflow-hidden w-full scroll-mt-[72px]"
         >
-          <BlurFade duration={0.5} inView>
-              <div className="m-4 flex justify-center text-5xl font-heading font-semibold backdrop-blur-2xl tracking-widest">
-                PROJECTS
-              </div>
-          </BlurFade>
+          <BlurFade duration={0.5} inView={true}>
+            <div className="m-4 flex justify-center text-2xl sm:text-4xl  md:text-5xl font-heading font-semibold backdrop-blur-2xl tracking-wider">
+              PROJECTS
+            </div>
 
-          <BlurFade duration={0.5} inView className="flex flex-wrap justify-center">
-            <Projects />
+            <div className="flex flex-wrap justify-center">
+              <Projects />
+            </div>
           </BlurFade>
           
+        </section>
+
+        <section id="tech-stack" className="mt-8 relative z-2 min-h-screen overflow-hidden w-full flex flex-col md:gap-8 gap-4 scroll-mt-[72px]"
+        >
+          <BlurFade duration={0.5} inView={true}>
+            <div className="m-4 pb-2 md:pb-4 flex justify-center text-2xl sm:text-4xl  md:text-5xl font-heading font-semibold backdrop-blur-2xl tracking-wider ">
+              TECH STACK
+            </div>
+
+          <div className="flex flex-wrap justify-center">
+            <TechStack />
+          </div>
+          </BlurFade>
+            
         </section>
 
       {/* </div> */}

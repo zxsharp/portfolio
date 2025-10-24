@@ -67,7 +67,7 @@ export const ProjectCard = ({
       onMouseEnter={handleMouseEnter}
       ref={ref}
       className={cn(
-        "md:h-110 w-60 h-60 md:w-96 bg-gradient-to-br from-zinc-500 via-slate-800 to-slate-900 rounded-lg overflow-hidden group/card relative outline-1 outline-white/20 outline-offset-3",
+        "md:h-110 w-64 h-92 md:w-96 bg-gradient-to-br from-zinc-500 via-slate-800 to-slate-900 rounded-lg overflow-hidden group/card relative outline-1 outline-white/20 outline-offset-3",
         className
       )}
     >
@@ -106,7 +106,7 @@ export const ProjectCard = ({
           </div>
 
           {/* Children content below the image */}
-          <div className="flex-1 w-full p-4">{children}</div>
+          <div className="flex-1 w-full p-2 md:p-4">{children}</div>
         </motion.div>
       </AnimatePresence>
     </motion.div>

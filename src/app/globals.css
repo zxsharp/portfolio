@@ -204,21 +204,3 @@
   background-color: rgba(148,163,184,0.8);
 }
 
-
-/* carousel css */
-
-/* Default dim + blur */
-.embla__slide .embla-slide-card {
-  filter: brightness(.85) blur(2px);
-  transition: filter .3s ease;
-}
-
-/* Selected (center) slide */
-.embla__slide.is-snapped .embla-slide-card {
-  filter: brightness(1.2) blur(0px);
-}
-
-/* While dragging disable transition */
-.embla__container.is-dragging .embla-slide-card {
-  transition: none;
-}

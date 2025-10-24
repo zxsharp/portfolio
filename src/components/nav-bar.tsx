@@ -22,7 +22,7 @@ export default function NavBar() {
   const { scrollY } = useScroll({ container: containerRef });
 
   // Track scroll direction
-  const [scrollDirection, setScrollDirection] = useState<"down" | "up">("down");
+  const [scrollDirection, setScrollDirection] = useState<"down" | "up">("up");
   useMotionValueEvent(scrollY, "change", (current) => {
     const prev = scrollY.getPrevious() ?? 0;
     const diff = current - prev;
@@ -30,20 +30,20 @@ export default function NavBar() {
   });
 
   return (
-    <nav className="fixed inset-x-0 top-0 z-50 bg-transparent">
+    <nav className="fixed inset-x-0 top-0 z-50 bg-transparent pointer-events-none">
       <div className="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between text-slate-100">
         {/* Left: profile image with revolving beam on outline */}
         <button
           type="button"
           aria-label="Home"
           onClick={() => scrollToId("hero")}
-          className="flex items-center gap-2"
+          className="pointer-events-auto flex items-center gap-2"
         >
           <div className="relative rounded-full p-[4px]">
             {/* ring around pfp */}
             <div
               aria-hidden
-              className="pointer-events-none absolute inset-0 rounded-full"
+              className="absolute inset-0 rounded-full"
               style={{
                 background:
                   "linear-gradient(90deg, rgba(148,163,184,0.28), rgba(161,161,170,0.28))",
@@ -97,7 +97,7 @@ export default function NavBar() {
           aria-label="Open menu"
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
-          className="relative inline-flex flex-col items-center justify-center gap-1 p-2 rounded-md hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 cursor-pointer"
+          className="pointer-events-auto relative inline-flex flex-col items-center justify-center gap-1 p-2 rounded-md hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 cursor-pointer"
           animate={open || scrollDirection === "up" ? { x: 0, opacity: 1 } : { x: 40, opacity: 0 }}
           transition={{ duration: 0.25, ease: "easeOut" }}
           style={{ willChange: "transform, opacity", pointerEvents: open || scrollDirection === "up" ? "auto" : "none" }}
@@ -111,12 +111,12 @@ export default function NavBar() {
       {/* Overlay */}
       <div
         onClick={() => setOpen(false)}
-        className={`fixed inset-0 z-40 transition-colors ${open ? "bg-black/40" : "pointer-events-none bg-transparent"}`}
+        className={`fixed inset-0 z-40 transition-colors ${open ? "pointer-events-auto bg-black/40" : "pointer-events-none bg-transparent"}`}
       />
 
       {/* Right drawer */}
       <aside
-        className={`fixed right-0 top-0 z-50 h-full w-64 bg-background text-slate-100 shadow-xl transform transition-transform duration-300 ${open ? "translate-x-0" : "translate-x-full"}`}
+        className={`pointer-events-auto fixed right-0 top-0 z-50 h-full w-64 bg-background text-slate-100 shadow-xl transform transition-transform duration-300 ${open ? "translate-x-0" : "translate-x-full"}`}
         aria-hidden={!open}
       >
         <div className="flex items-center justify-between px-4 py-3 border-b border-white/10">
@@ -141,17 +141,19 @@ export default function NavBar() {
           >
             Home
           </button>
-          <button
-            className="w-full text-left px-3 py-2 rounded hover:bg-white/10"
-            onClick={() => scrollToId("tech-stack")}
-          >
-            Tech Stack
-          </button>
+          
           <button
             className="w-full text-left px-3 py-2 rounded hover:bg-white/10"
             onClick={() => scrollToId("projects")}
           >
             Projects
+          </button>
+
+          <button
+            className="w-full text-left px-3 py-2 rounded hover:bg-white/10"
+            onClick={() => scrollToId("tech-stack")}
+          >
+            Tech Stack
           </button>
         </div>
       </aside>

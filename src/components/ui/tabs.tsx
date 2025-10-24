@@ -22,7 +22,7 @@ export const Tabs: React.FC<TabsProps> = ({
   defaultIndex = 0,
   onChange,
   className = "dark:border-neutral-800 w-full flex flex-wrap gap-3 justify-center items-center p-2 backdrop-blur-xl",
-  buttonClassName = "flex items-center justify-center rounded-full h-fit px-4 py-2 text-md text-foreground font-medium tracking-widest uppercase transform will-change-transform hover:scale-105 border-2 border-transparent hover:border-secondary transition-colors duration-400 ease-out",
+  buttonClassName = "flex items-center justify-center rounded-full h-fit px-3 py-2 text-sm sm:text-md md:text-lg text-foreground font-medium tracking-widest uppercase transform will-change-transform hover:scale-105 border-2 border-transparent hover:border-secondary transition-colors duration-400 ease-out",
   activeButtonClassName = "dark:text-neutral-900 bg-secondary font-semibold dark:bg-white"
 }) => {
   const [selected, setSelected] = useState<number>(defaultIndex)
@@ -52,9 +52,11 @@ export const Tabs: React.FC<TabsProps> = ({
           </RippleButton>
         ))}
       </div>
-      <BlurFade key={selected} delay={0.2}>
+      <BlurFade key={selected} delay={0.1} duration={0.5}>
         <div role="tabpanel" className="w-full">
-          {tabs[selected]?.content}
+          <div className="flex flex-wrap justify-center gap-5">
+            {tabs[selected]?.content}
+          </div>
         </div>
       </BlurFade>
     </div>
