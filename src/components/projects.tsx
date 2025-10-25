@@ -80,8 +80,8 @@ export default function Projects() {
                 </CarouselContent>
                 <div className="h-8 flex items-center justify-around">
                     <div className="flex gap-4">
-                        <CarouselPrevious />
-                        <CarouselNext />
+                        <CarouselPrevious className="hover:-translate-y-1 transform transition duration-200 hover:shadow-md"/>
+                        <CarouselNext className="hover:-translate-y-1 transform transition duration-200 hover:shadow-md" />
                     </div>
                     <CarouselDots api={api} />
                 </div>
@@ -138,7 +138,7 @@ function CarouselCard(props: CarouselProps) {
                         <span className="h-12 flex flex-wrap gap-1 md:gap-2 items-center">
                         {props.tech?.map((item, index) => {
                             return (
-                                <Badge key={index} className="px-1 text-foreground bg-transparent border-[1px] border-white/50 rounded-sm">{item}</Badge>
+                                <Badge key={index} className="px-1 md:py-1 text-foreground bg-transparent border-[1px] md:border-sm border-white/60 rounded-sm">{item}</Badge>
                             )
                         })}
                         </span>

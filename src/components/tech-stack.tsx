@@ -89,7 +89,7 @@ type PropsType = {
 
 const TechStackCard = ({imgName, name}: PropsType ) => {
     return (
-        <GlareCard className="flex flex-col gap-1 lg:gap-3 items-center justify-center">
+        <GlareCard className="flex flex-col gap-2 lg:gap-3 items-center justify-center">
             <Image
                 className=" w-8 sm:w-16 md:w-18 lg:w-20 relative inset-0 object-cover"
                 src={`/${imgName}`}
@@ -97,7 +97,7 @@ const TechStackCard = ({imgName, name}: PropsType ) => {
                 width={80}
                 height={80}
             />
-            <div className="text-xs sm:text-lg">
+            <div className="text-xs sm:text-lg md:text-xl">
                 {name}
             </div>
         </GlareCard>
