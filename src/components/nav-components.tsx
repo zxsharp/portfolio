@@ -1,25 +1,61 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, useScroll, useMotionValueEvent } from "motion/react";
 import { Button } from "./ui/button";
+
+// Shared helper: scroll the correct container with header offset and clamping.
+function scrollToSection(id: string, opts?: { delayMs?: number }) {
+  const delayMs = opts?.delayMs ?? 0;
+  const run = () => {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    // Prefer custom scroll container if present, else fallback to the document root.
+    const container =
+      (document.querySelector(".custom-scrollbar") as HTMLElement | null) ||
+      (document.scrollingElement as HTMLElement | null) ||
+      document.documentElement;
+
+    // Fixed nav height (query the fixed nav this component renders)
+    const nav = document.querySelector("nav.fixed") as HTMLElement | null;
+    const headerOffset = (nav?.getBoundingClientRect().height ?? 0) + 8;
+
+    // Current scroll position and geometry
+    const topNow = container.scrollTop;
+    const viewportH = container.clientHeight || window.innerHeight;
+    const scrollH =
+      container.scrollHeight || document.documentElement.scrollHeight;
+
+    const elTop = el.getBoundingClientRect().top + topNow - headerOffset;
+    const maxScroll = Math.max(0, scrollH - viewportH);
+    const targetTop = Math.max(0, Math.min(elTop, maxScroll));
+
+    // Smoothly scroll the container
+    container.scrollTo({ top: targetTop, behavior: "smooth" });
+  };
+
+  if (delayMs > 0) {
+    setTimeout(run, delayMs);
+  } else {
+    run();
+  }
+}
 
 function NavBar() {
   const [open, setOpen] = useState(false);
 
   const scrollToId = (id: string) => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.scrollIntoView({ behavior: "smooth", block: "start" });
-    setOpen(false);
+    if (open) setOpen(false); 
+    scrollToSection(id);
   };
 
-  // Bind useScroll to the custom scroll container
+  // Bind useScroll to the custom scroll container (do this after mount).
   const containerRef = useRef<HTMLElement | null>(null);
-  if (typeof window !== "undefined" && !containerRef.current) {
+  useEffect(() => {
     containerRef.current = document.querySelector(".custom-scrollbar") as HTMLElement | null;
-  }
+  }, []);
   const { scrollY } = useScroll({ container: containerRef });
 
   // Track scroll direction
@@ -181,9 +217,8 @@ function NavButton(props: {name: string, navTo: string}) {
     <Button
       className="py-5 scale-95 text-lg cursor-pointer bg-gradient-to-br from-zinc-700 via-slate-600 to-cyan-800 transition-all duration-150 ease-in hover:scale-100 hover:from-cyan-800"
       onClick={() => {
-        const el = document.getElementById(props.navTo);
-        if (!el) return;
-        el.scrollIntoView({ behavior: "smooth", block: "start" });
+        // Use the same robust scroll helper for consistency on mobile.
+        scrollToSection(props.navTo);
       }}
     >
       {props.name}
