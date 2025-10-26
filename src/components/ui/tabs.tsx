@@ -54,7 +54,7 @@ export const Tabs: React.FC<TabsProps> = ({
       </div>
       <BlurFade key={selected} delay={0.1} duration={0.5}>
         <div role="tabpanel" className="w-full">
-          <div className="flex flex-wrap justify-center gap-5">
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-4 mg:gap-5">
             {tabs[selected]?.content}
           </div>
         </div>

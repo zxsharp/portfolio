@@ -3,8 +3,9 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
 import { motion, useScroll, useMotionValueEvent } from "motion/react";
+import { Button } from "./ui/button";
 
-export default function NavBar() {
+function NavBar() {
   const [open, setOpen] = useState(false);
 
   const scrollToId = (id: string) => {
@@ -97,7 +98,7 @@ export default function NavBar() {
           aria-label="Open menu"
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
-          className="pointer-events-auto relative inline-flex flex-col items-center justify-center gap-1 p-2 rounded-md hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 cursor-pointer"
+          className="pointer-events-auto outline-1 relative inline-flex flex-col items-center justify-center gap-1 p-2 rounded-md hover:bg-white/10  cursor-pointer"
           animate={open || scrollDirection === "up" ? { x: 0, opacity: 1 } : { x: 40, opacity: 0 }}
           transition={{ duration: 0.25, ease: "easeOut" }}
           style={{ willChange: "transform, opacity", pointerEvents: open || scrollDirection === "up" ? "auto" : "none" }}
@@ -141,6 +142,13 @@ export default function NavBar() {
           >
             Home
           </button>
+
+          <button
+            className="w-full text-left px-3 py-2 rounded hover:bg-white/10"
+            onClick={() => scrollToId("about")}
+          >
+            About me
+          </button>
           
           <button
             className="w-full text-left px-3 py-2 rounded hover:bg-white/10"
@@ -155,8 +163,33 @@ export default function NavBar() {
           >
             Tech Stack
           </button>
+
+          <button
+            className="w-full text-left px-3 py-2 rounded hover:bg-white/10"
+            onClick={() => scrollToId("contact")}
+          >
+            Contact
+          </button>
         </div>
       </aside>
     </nav>
   );
 }
+
+function NavButton(props: {name: string, navTo: string}) {
+  return (
+    <Button
+      className="py-5 scale-95 text-lg cursor-pointer bg-gradient-to-br from-zinc-700 via-slate-600 to-cyan-800 transition-all duration-150 ease-in hover:scale-100 hover:from-cyan-800"
+      onClick={() => {
+        const el = document.getElementById(props.navTo);
+        if (!el) return;
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }}
+    >
+      {props.name}
+    </Button>
+  )
+}
+
+
+export {NavBar, NavButton}

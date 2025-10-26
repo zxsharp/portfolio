@@ -56,7 +56,7 @@ export default function Projects() {
                         about="React SPA that generates random passowrds."
                         githubUrl="https://github.com/zxsharp/Password-Generator"
                         liveUrl="https://password-generator-lovat-omega.vercel.app"
-                        tech={["React"]}
+                        tech={["React", "Javascript"]}
                     />
 
                     <CarouselCard
@@ -65,7 +65,7 @@ export default function Projects() {
                         about="A UI wrapper of multiple metadata parsing libraries that reades the metadata based on the file type."
                         githubUrl="https://github.com/zxsharp/metadata-reader"
                         liveUrl="https://metadata-reader-roan.vercel.app"
-                        tech={["React", "bunch of parsing libs..."]}
+                        tech={["React", "Tailwind", "Shadcn UI", "Exif-js"]}
                     />
 
                     <CarouselCard
@@ -78,13 +78,15 @@ export default function Projects() {
                     />
 
                 </CarouselContent>
-                <div className="h-8 flex items-center justify-around">
+                
+                <div className="h-8 flex items-center justify-center gap-[10%] md:gap-[50%]">
                     <div className="flex gap-4">
                         <CarouselPrevious className="hover:-translate-y-1 transform transition duration-200 hover:shadow-md"/>
                         <CarouselNext className="hover:-translate-y-1 transform transition duration-200 hover:shadow-md" />
                     </div>
                     <CarouselDots api={api} />
                 </div>
+                
             </Carousel>
         </>
     )   
@@ -118,7 +120,7 @@ function CarouselCard(props: CarouselProps) {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label={`${props.title} GitHub`}
-                                    className="inline-flex p-1 rounded-full shadow-xs shadow-black hover:bg-black/60 hover:scale-120 transition-all duration-100 ease-in-out"
+                                    className="inline-flex p-1 rounded-full shadow-xs shadow-black hover:bg-black/60 hover:scale-120 transition-all duration-100 ease-out"
                                 >
                                     <GithubIcon />
                                 </a>
@@ -129,7 +131,7 @@ function CarouselCard(props: CarouselProps) {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label={`${props.title} Live site`}
-                                    className="inline-flex p-1 rounded-md text-sky-300 hover:text-sky-400 hover:scale-120 transition-all duration-100 ease-in-out"
+                                    className="inline-flex p-1 rounded-md text-sky-300 hover:scale-120 transition-all duration-100 ease-out"
                                 >
                                     <ExternalLink />
                                 </a>

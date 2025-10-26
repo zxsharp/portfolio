@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef } from "react"
+import { useRef, useEffect } from "react"
 import {
   AnimatePresence,
   motion,
@@ -27,6 +27,7 @@ interface BlurFadeProps extends MotionProps {
   inViewMargin?: MarginType
   blur?: string
   triggerOnce?: boolean
+  oneTimeDelay?: number
 }
 
 export function BlurFade({
@@ -41,11 +42,26 @@ export function BlurFade({
   inViewMargin = "-50px",
   blur = "6px",
   triggerOnce = false,
+  oneTimeDelay,
   ...props
 }: BlurFadeProps) {
   const ref = useRef(null)
   const inViewResult = useInView(ref, { once: triggerOnce, margin: inViewMargin })
   const isInView = !inView || inViewResult
+
+  // Track if the one-time delay has been applied already
+  const hasAppliedOneTimeDelay = useRef(false)
+  useEffect(() => {
+    if (isInView && !hasAppliedOneTimeDelay.current) {
+      hasAppliedOneTimeDelay.current = true
+    }
+  }, [isInView])
+
+  // Pick oneTimeDelay only for the first visible animation
+  const effectiveDelay = hasAppliedOneTimeDelay.current
+    ? delay
+    : (oneTimeDelay ?? delay)
+
   const defaultVariants: Variants = {
     hidden: {
       [direction === "left" || direction === "right" ? "x" : "y"]:
@@ -69,7 +85,7 @@ export function BlurFade({
         exit="hidden"
         variants={combinedVariants}
         transition={{
-          delay: 0.04 + delay,
+          delay: 0.04 + effectiveDelay,
           duration,
           ease: "easeOut",
         }}
