@@ -7,7 +7,6 @@ import Projects from "@/components/projects";
 import WavingHand from "@/components/waving-hand";
 import { Button } from "@/components/ui/button";
 import { Github, Linkedin, Mail, } from "lucide-react";
-import { TracingBeam } from "@/components/ui/tracing-beam";
 
 
 export default function Home() {
