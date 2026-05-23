@@ -26,6 +26,8 @@ export default function TechStack() {
                     <TechStackCard imgName="node.svg" name="Node.Js" />
                     <TechStackCard imgName="express.webp" name="Express.Js" />
                     <TechStackCard imgName="hono.png" name="Hono" />
+                    <TechStackCard imgName="Fastify.png" name="Fastify" />
+                    <TechStackCard imgName="socketio.png" name="Socket.io" />
                 </> 
             )
         },
@@ -37,6 +39,8 @@ export default function TechStack() {
                     <TechStackCard imgName="mongodb.webp" name="Mongo DB" />
                     <TechStackCard imgName="prisma.jpeg" name="Prisma" />
                     <TechStackCard imgName="mongoose.png" name="Mongoose" />
+                    <TechStackCard imgName="redis.png" name="Redis" />
+                    <TechStackCard imgName="sqlite.png" name="SQLite" />
                 </>
             )
         },
@@ -46,7 +50,29 @@ export default function TechStack() {
                 <>
                     <TechStackCard imgName="ts.svg" name="Typescript" />
                     <TechStackCard imgName="js.svg" name="Javascript" />
-                    <TechStackCard imgName="c++.svg" name="C++" />
+                    <TechStackCard imgName="python.png" name="Python" />
+                </>
+            )
+        },
+        { 
+            label: "AI", 
+            content: (
+                <>
+                    <TechStackCard imgName="opencv.png" name="OpenCV" />
+                    <TechStackCard imgName="mediapipe.png" name="MediaPipe" />
+                    <TechStackCard imgName="pandas.png" name="Pandas" />
+                    <TechStackCard imgName="scikitlearn.png" name="Scikit-Learn" />
+                </>
+            )
+        },
+        { 
+            label: "Cloud", 
+            content: (
+                <>
+                    <TechStackCard imgName="aws.png" name="AWS" />
+                    <TechStackCard imgName="vercel.png" name="Vercel" />
+                    <TechStackCard imgName="docker.webp" name="Docker" />
+                    <TechStackCard imgName="cloudflare.png" name="Cloudflare" />  
                 </>
             )
         },
@@ -62,17 +88,6 @@ export default function TechStack() {
                 </>
             )
         },
-        { 
-            label: "Cloud", 
-            content: (
-                <>
-                    <TechStackCard imgName="aws.png" name="AWS" />
-                    <TechStackCard imgName="vercel.png" name="Vercel" />
-                    <TechStackCard imgName="docker.webp" name="Docker" />
-                    <TechStackCard imgName="cloudflare.png" name="Cloudflare" />  
-                </>
-            )
-        }
     ]
 
     return (
