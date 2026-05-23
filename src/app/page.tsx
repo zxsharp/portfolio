@@ -11,7 +11,7 @@ import { Github, Linkedin, Mail, } from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="px-2 custom-scrollbar h-screen 2xl:h-auto overflow-y-auto scroll-smooth">
+    <div className="px-2 custom-scrollbar h-screen overflow-y-auto scroll-smooth">
         
         <NavBar />
         
