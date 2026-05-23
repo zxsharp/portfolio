@@ -51,30 +51,35 @@ export default function Projects() {
                     />
 
                     <CarouselCard
-                        imageUrl="/password-generator.png"
-                        title="PASSWORD-GENERATOR"
-                        about="React SPA that generates random passowrds."
-                        githubUrl="https://github.com/zxsharp/Password-Generator"
-                        liveUrl="https://password-generator-lovat-omega.vercel.app"
-                        tech={["React", "Javascript"]}
+                        imageUrl="/vision.png"
+                        title="EYEDESK"
+                        about="A real-time attention-tracking pipeline utilizing a monocular camera to continuously monitor user focus and spatial behavior."
+                        githubUrl="https://github.com/zxsharp/eyedesk"
+                        tech={["Python", "Typescript", "OpenCV", "MediaPipe", "SQLite"]}
                     />
 
                     <CarouselCard
-                        imageUrl="/metadata-reader.png"
-                        title="METADATA-READER"
-                        about="A UI wrapper of multiple metadata parsing libraries that reades the metadata based on the file type."
-                        githubUrl="https://github.com/zxsharp/metadata-reader"
-                        liveUrl="https://metadata-reader-roan.vercel.app"
-                        tech={["React", "Tailwind", "Shadcn UI", "Exif-js"]}
+                        imageUrl="/mlops.png"
+                        title="DATA LINEAGE POLICY ENGINE"
+                        about="A deterministic MLOps policy engine to simulate and mitigate the downstream blast radius of breaking schema mutations."
+                        githubUrl="https://github.com/zxsharp/metadata-change-guard"
+                        tech={["TypeScript", "Node.js", "Fastify", "React", "OpenMetadata"]}
                     />
 
                     <CarouselCard
-                        imageUrl="/text-compare.png"
-                        title="TEXT-COMPARE"
-                        about="UI wrapper to highlight difference in two different texts like in git but letter by letter."
-                        githubUrl="https://github.com/zxsharp/compare-text"
-                        liveUrl="https://compare-text-lake.vercel.app"
-                        tech={["React", "tailwind", "diff-match-patch"]}
+                        imageUrl="/traffic.png"
+                        title="API TRAFFIC ANALYZER"
+                        about="A real-time high-throughput streaming data pipeline to ingest, aggregate, and continuously process asynchronous API traffic logs."
+                        githubUrl="https://github.com/zxsharp/api-traffic-monitor"
+                        tech={["Python", "Pandas", "Scikit-learn", "Redis Streams"]}
+                    />
+
+                    <CarouselCard
+                        imageUrl="/p2p.png"
+                        title="ONION P2P MESSAGING APP"
+                        about="A decentralized peer-to-peer network over Tor utilizing multi-hop routing for secure, resilient, and censorship-resistant communication."
+                        githubUrl="https://github.com/zxsharp/onion-p2p-app"
+                        tech={["TypeScript", "Node.js", "Tor", "WebSockets"]}
                     />
 
                 </CarouselContent>
